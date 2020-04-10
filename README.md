@@ -1,3 +1,6 @@
+![CI](https://github.com/iassia/round-robin-tournament/workflows/CI/badge.svg)
+
+
 # Round-robin tournament
 
 A round-robin tournament (or all-play-all tournament) using JavaScript / TypeScript.
