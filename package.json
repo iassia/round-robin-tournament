@@ -1,0 +1,24 @@
+{
+  "name": "round-robin-tournament",
+  "version": "1.0.0",
+  "description": "A round-robin tournament (or all-play-all tournament) using JavaScript / TypeScript.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "keywords": [
+    "round-robin",
+    "tournament",
+    "fixture",
+    "all-play-all",
+    "rotation"
+  ],
+  "author": "Fábio Iassia",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^25.3.0",
+    "ts-jest": "^25.3.1",
+    "typescript": "^3.8.3"
+  }
+}
