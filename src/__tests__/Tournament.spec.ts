@@ -1,4 +1,4 @@
-import Tournament from "../Tournament";
+import Tournament from "../tournament";
 
 const TEAMS = [
   { id: 1, name: "Arsenal" },

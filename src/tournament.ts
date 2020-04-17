@@ -1,4 +1,4 @@
-import List from "./List";
+import List from "./list";
 
 type ListTeams = ReadonlyArray<Team>;
 type ListRounds = Array<any>;

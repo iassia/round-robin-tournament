@@ -1,4 +1,4 @@
-import List from "../List";
+import List from "../list";
 
 describe("List", () => {
   it("simple rotate a list", () => {

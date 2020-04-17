@@ -2,9 +2,11 @@
   "name": "round-robin-tournament",
   "version": "1.0.0",
   "description": "A round-robin tournament (or all-play-all tournament) using JavaScript / TypeScript.",
-  "main": "index.ts",
+  "main": "dist/tournament.js",
+  "types": "dist/tournament.d.ts",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "build": "tsc"
   },
   "keywords": [
     "round-robin",
