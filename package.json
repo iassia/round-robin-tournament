@@ -1,6 +1,6 @@
 {
   "name": "round-robin-tournament",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A round-robin tournament (or all-play-all tournament) using JavaScript / TypeScript.",
   "main": "dist/tournament.js",
   "types": "dist/tournament.d.ts",
