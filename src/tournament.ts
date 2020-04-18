@@ -18,7 +18,7 @@ interface TournamentInterface {
  * Class to create a all-play-all tournament
  * matches considering home and away rounds
  */
-export default class Tournament implements TournamentInterface {
+export class Tournament implements TournamentInterface {
   readonly teams: ListTeams;
 
   constructor(teams: ListTeams) {
