@@ -6,15 +6,17 @@
 A round-robin tournament (or all-play-all tournament) using JavaScript / TypeScript.
 The goal is to create a competition in which each team meets the other teams in two rounds.
 
-## Actions
+## How to Use It
 
-- `npm i` Installing Dependencies
-- `npm test` Executing tests
+Install from npm:
 
-## Basic usage
+`npm i round-robin-tournament`
+
+Import `round-robin-tournament` and pass an `Array` to constructor.
+Use the `matches` method to get the fixture.
 
 ```js
-import { Tournament } from "round-robin-tournament")
+import Tournament from "round-robin-tournament"
 
 const TEAMS = [
     { id: 1, name: "Arsenal" },
@@ -27,4 +29,21 @@ const TEAMS = [
 
 const tournament = new Tournament(TEAMS)  
 const matches = tournament.matches
+```
+## Result example
+
+ - The `matches` method returns and `Array` of `rounds`
+ - Each `round` is an Array of `matches`
+ - Each `match` is an Array of two teams: `[{ home } , { visitor/away }]` 
+
+```
+[
+  ...
+  [
+    [ { id: 1, name: 'Arsenal' }, { id: 5, name: 'Manchester United' } ],
+    [ { id: 6, name: 'Westham' }, { id: 2, name: 'Chelsea' } ],
+    [ { id: 3, name: 'Liverpool' }, { id: 4, name: 'Manchester City' } ]
+  ]
+  ...
+]
 ```
