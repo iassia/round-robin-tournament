@@ -6,7 +6,7 @@ const TEAMS = [
   { id: 3, name: "Liverpool" },
   { id: 4, name: "Manchester City" },
   { id: 5, name: "Manchester United" },
-  { id: 6, name: "Westham" },
+  { id: 6, name: "West Ham" },
 ];
 
 describe("Tournament", () => {

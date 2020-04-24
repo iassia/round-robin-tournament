@@ -24,7 +24,7 @@ const TEAMS = [
     { id: 3, name: "Liverpool" },
     { id: 4, name: "Manchester City" },
     { id: 5, name: "Manchester United" },
-    { id: 6, name: "Westham" },
+    { id: 6, name: "West Ham" },
   ];  
 
 const tournament = new Tournament(TEAMS)  
@@ -41,7 +41,7 @@ const matches = tournament.matches
   ...
   [
     [ { id: 1, name: 'Arsenal' }, { id: 5, name: 'Manchester United' } ],
-    [ { id: 6, name: 'Westham' }, { id: 2, name: 'Chelsea' } ],
+    [ { id: 6, name: 'West Ham' }, { id: 2, name: 'Chelsea' } ],
     [ { id: 3, name: 'Liverpool' }, { id: 4, name: 'Manchester City' } ]
   ]
   ...
