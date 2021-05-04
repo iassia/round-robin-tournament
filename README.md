@@ -47,3 +47,11 @@ const matches = tournament.matches
   ...
 ]
 ```
+
+## Caveat
+
+If you are not using a transpiler or importing using require via CommonJS, you may need to use a `.default` reference.
+
+```js
+const Tournament = require("./tournament.js").default
+```
