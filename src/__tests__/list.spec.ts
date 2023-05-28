@@ -1,24 +1,48 @@
 import List from "../list";
 
-describe("List", () => {
-  it("simple rotate a list", () => {
-    const list = [1, 2, 3, 4];
-    const rotated = List.rotate(list);
+describe("List Handler", () => {
+  it("rotates a simple list", () => {
+    let rotated = List.rotate([1, 2, 3, 4]);
     expect(rotated).toEqual([2, 3, 4, 1]);
+
+    rotated = List.rotate(rotated);
+    expect(rotated).toEqual([3, 4, 1, 2]);
+
+    rotated = List.rotate(rotated);
+    expect(rotated).toEqual([4, 1, 2, 3]);
+
+    rotated = List.rotate(rotated);
+    expect(rotated).toEqual([1, 2, 3, 4]);
   });
 
-  it("rotate a list with fixed item", () => {
-    const list = [1, 2, 3, 4];
-    const rotated = List.lockedRotate(list, 1);
+  it("rotates a list with the first item fixed by default", () => {
+    let rotated = List.lockedRotate([1, 2, 3, 4]);
     expect(rotated).toEqual([1, 3, 4, 2]);
+
+    rotated = List.lockedRotate(rotated);
+    expect(rotated).toEqual([1, 4, 2, 3]);
+
+    rotated = List.lockedRotate(rotated);
+    expect(rotated).toEqual([1, 2, 3, 4]);
   });
 
-  it("ignore empty list when rotate", () => {
+  it("rotates a list with custom fixed item", () => {
+    let rotated = List.lockedRotate([1, 2, 3, 4, 5, 6], 1);
+    expect(rotated).toEqual([3, 2, 4, 5, 6, 1]);
+
+    rotated = List.lockedRotate(rotated, 1);
+    expect(rotated).toEqual([4, 2, 5, 6, 1, 3]);
+
+    rotated = List.lockedRotate(rotated, 1);
+    expect(rotated).toEqual([5, 2, 6, 1, 3, 4]);
+  });
+
+  it("ignores empty list when rotate", () => {
     const rotated = List.rotate();
     expect(rotated).toEqual([]);
   });
 
-  it("ignore empty list when fixed rotate", () => {
+  it("ignores empty list when fixed rotate", () => {
     const rotated = List.lockedRotate();
     expect(rotated).toEqual([]);
   });
