@@ -1,6 +1,6 @@
 import List from "../list";
 
-describe("List Handler", () => {
+describe("List", () => {
   it("rotates a simple list", () => {
     let rotated = List.rotate([1, 2, 3, 4]);
     expect(rotated).toEqual([2, 3, 4, 1]);
