@@ -5,9 +5,12 @@ export default class List {
 
   static lockedRotate(
     list: Array<any> = [],
-    lockedPosition: number = 1
+    lockedPosition: number = 0
   ): Array<any> {
-    list = [...list];
-    return [...list.splice(0, lockedPosition), ...this.rotate(list)];
+    const rotatedList = [...list];
+    const [lockedItem] = rotatedList.splice(lockedPosition, 1);
+    const rotatedItems = this.rotate(rotatedList);
+    rotatedItems.splice(lockedPosition, 0, lockedItem);
+    return rotatedItems;
   }
 }
