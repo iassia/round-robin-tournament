@@ -35,7 +35,6 @@ export default class Tournament implements TournamentInterface {
 
   tournament(): Matches {
     const matches = this.calculateMatches([...this.teams]);
-
     return [
       ...matches,
       ...matches.map((round) => round.map(([home, away]) => [away, home])),
@@ -45,13 +44,13 @@ export default class Tournament implements TournamentInterface {
   protected calculateMatches(teams: any, rounds: any = [], round: any = 0): Matches {
     if (round === this.totalRounds) return rounds;
 
-    const r = List.lockedRotate(teams)
-    const firstHalf = r.slice(0, Math.ceil(r.length / 2));
-    rounds.push(firstHalf.map((team: Object, index: number) => {
-      const team2 = r[r.length - 1 - index]
-      return round % 2 ? [team, team2] : [team2, team];
+    const rotatedTeams = List.lockedRotate(teams)
+    const halfTeams = rotatedTeams.slice(0, Math.ceil(rotatedTeams.length / 2));
+    rounds.push(halfTeams.map((team: Object, index: number) => {
+      const opponent = rotatedTeams[rotatedTeams.length - ++index]
+      return round % 2 ? [team, opponent] : [opponent, team];
     }));
 
-    return this.calculateMatches(r, rounds, round + 1);
+    return this.calculateMatches(rotatedTeams, rounds, ++round);
   }
 }
