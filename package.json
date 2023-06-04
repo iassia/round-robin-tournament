@@ -17,6 +17,7 @@
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --watch",
+    "test:validate": "jest --runInBand --detectOpenHandles",
     "build": "tsc"
   },
   "keywords": [
