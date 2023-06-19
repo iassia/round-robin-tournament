@@ -1,12 +1,12 @@
 import Tournament from '../tournament'
 
 const TEAMS = [
-  { id: 1, name: 'Arsenal' },
-  { id: 2, name: 'Chelsea' },
-  { id: 3, name: 'Liverpool' },
-  { id: 4, name: 'Manchester City' },
-  { id: 5, name: 'Manchester United' },
-  { id: 6, name: 'West Ham' },
+  'Arsenal',
+  'Chelsea',
+  'Liverpool',
+  'Manchester City',
+  'Manchester United',
+  'West Ham',
 ]
 
 describe('Tournament', () => {
@@ -22,152 +22,62 @@ describe('Tournament', () => {
     )
   })
 
-  it('returns correct first match', () => {
+  it('returns correct matches', () => {
     expect(tournament.matches).toStrictEqual([
       [
-        [
-          { id: 2, name: 'Chelsea' },
-          { id: 1, name: 'Arsenal' },
-        ],
-        [
-          { id: 6, name: 'West Ham' },
-          { id: 3, name: 'Liverpool' },
-        ],
-        [
-          { id: 5, name: 'Manchester United' },
-          { id: 4, name: 'Manchester City' },
-        ],
+        ['Chelsea', 'Arsenal'],
+        ['West Ham', 'Liverpool'],
+        ['Manchester United', 'Manchester City'],
       ],
       [
-        [
-          { id: 1, name: 'Arsenal' },
-          { id: 3, name: 'Liverpool' },
-        ],
-        [
-          { id: 4, name: 'Manchester City' },
-          { id: 2, name: 'Chelsea' },
-        ],
-        [
-          { id: 5, name: 'Manchester United' },
-          { id: 6, name: 'West Ham' },
-        ],
+        ['Arsenal', 'Liverpool'],
+        ['Manchester City', 'Chelsea'],
+        ['Manchester United', 'West Ham'],
       ],
       [
-        [
-          { id: 4, name: 'Manchester City' },
-          { id: 1, name: 'Arsenal' },
-        ],
-        [
-          { id: 3, name: 'Liverpool' },
-          { id: 5, name: 'Manchester United' },
-        ],
-        [
-          { id: 2, name: 'Chelsea' },
-          { id: 6, name: 'West Ham' },
-        ],
+        ['Manchester City', 'Arsenal'],
+        ['Liverpool', 'Manchester United'],
+        ['Chelsea', 'West Ham'],
       ],
       [
-        [
-          { id: 1, name: 'Arsenal' },
-          { id: 5, name: 'Manchester United' },
-        ],
-        [
-          { id: 6, name: 'West Ham' },
-          { id: 4, name: 'Manchester City' },
-        ],
-        [
-          { id: 2, name: 'Chelsea' },
-          { id: 3, name: 'Liverpool' },
-        ],
+        ['Arsenal', 'Manchester United'],
+        ['West Ham', 'Manchester City'],
+        ['Chelsea', 'Liverpool'],
       ],
       [
-        [
-          { id: 6, name: 'West Ham' },
-          { id: 1, name: 'Arsenal' },
-        ],
-        [
-          { id: 5, name: 'Manchester United' },
-          { id: 2, name: 'Chelsea' },
-        ],
-        [
-          { id: 4, name: 'Manchester City' },
-          { id: 3, name: 'Liverpool' },
-        ],
+        ['West Ham', 'Arsenal'],
+        ['Manchester United', 'Chelsea'],
+        ['Manchester City', 'Liverpool'],
       ],
       [
-        [
-          { id: 1, name: 'Arsenal' },
-          { id: 2, name: 'Chelsea' },
-        ],
-        [
-          { id: 3, name: 'Liverpool' },
-          { id: 6, name: 'West Ham' },
-        ],
-        [
-          { id: 4, name: 'Manchester City' },
-          { id: 5, name: 'Manchester United' },
-        ],
+        ['Arsenal', 'Chelsea'],
+        ['Liverpool', 'West Ham'],
+        ['Manchester City', 'Manchester United'],
       ],
       [
-        [
-          { id: 3, name: 'Liverpool' },
-          { id: 1, name: 'Arsenal' },
-        ],
-        [
-          { id: 2, name: 'Chelsea' },
-          { id: 4, name: 'Manchester City' },
-        ],
-        [
-          { id: 6, name: 'West Ham' },
-          { id: 5, name: 'Manchester United' },
-        ],
+        ['Liverpool', 'Arsenal'],
+        ['Chelsea', 'Manchester City'],
+        ['West Ham', 'Manchester United'],
       ],
       [
-        [
-          { id: 1, name: 'Arsenal' },
-          { id: 4, name: 'Manchester City' },
-        ],
-        [
-          { id: 5, name: 'Manchester United' },
-          { id: 3, name: 'Liverpool' },
-        ],
-        [
-          { id: 6, name: 'West Ham' },
-          { id: 2, name: 'Chelsea' },
-        ],
+        ['Arsenal', 'Manchester City'],
+        ['Manchester United', 'Liverpool'],
+        ['West Ham', 'Chelsea'],
       ],
       [
-        [
-          { id: 5, name: 'Manchester United' },
-          { id: 1, name: 'Arsenal' },
-        ],
-        [
-          { id: 4, name: 'Manchester City' },
-          { id: 6, name: 'West Ham' },
-        ],
-        [
-          { id: 3, name: 'Liverpool' },
-          { id: 2, name: 'Chelsea' },
-        ],
+        ['Manchester United', 'Arsenal'],
+        ['Manchester City', 'West Ham'],
+        ['Liverpool', 'Chelsea'],
       ],
       [
-        [
-          { id: 1, name: 'Arsenal' },
-          { id: 6, name: 'West Ham' },
-        ],
-        [
-          { id: 2, name: 'Chelsea' },
-          { id: 5, name: 'Manchester United' },
-        ],
-        [
-          { id: 3, name: 'Liverpool' },
-          { id: 4, name: 'Manchester City' },
-        ],
+        ['Arsenal', 'West Ham'],
+        ['Chelsea', 'Manchester United'],
+        ['Liverpool', 'Manchester City'],
       ],
     ])
   })
 
-  it('returns 10 rounds when receive 6 teams', () => {
+  it('returns 10 rounds when receiving 6 teams', () => {
     expect(tournament.matches.length).toBe(10)
   })
 })
