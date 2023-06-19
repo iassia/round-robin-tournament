@@ -1,17 +1,11 @@
 import List from './list'
 
-type ListTeams = ReadonlyArray<Team>
-// type ListRounds = Array<any>;
-// type ListSimple = Array<Team>;
-type Matches = string[][][]
-
-type Team = {
-  readonly id: number
-  readonly name: string
-}
+type Matches = any[][][]
+type Team = string | { [key: string]: any }
+type TeamsList = ReadonlyArray<Team>
 
 interface TournamentInterface {
-  readonly teams: ListTeams
+  readonly teams: TeamsList
 }
 
 /**
@@ -19,10 +13,10 @@ interface TournamentInterface {
  * matches considering home and away rounds
  */
 export default class Tournament implements TournamentInterface {
-  readonly teams: ListTeams
+  readonly teams: TeamsList
   readonly totalRounds: number
 
-  constructor(teams: ListTeams) {
+  constructor(teams: TeamsList) {
     if (teams.length % 2) throw new Error('Teams length must be even')
 
     this.teams = teams
