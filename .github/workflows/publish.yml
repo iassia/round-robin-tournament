@@ -34,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Bump version
-        run: npm version patch
+        run: npm version patch --no-git-tag-version
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
