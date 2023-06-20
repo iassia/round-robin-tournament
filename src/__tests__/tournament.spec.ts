@@ -1,28 +1,17 @@
 import Tournament from '../tournament'
 
-const TEAMS = [
-  'Arsenal',
-  'Chelsea',
-  'Liverpool',
-  'Manchester City',
-  'Manchester United',
-  'West Ham',
-]
-
 describe('Tournament', () => {
-  let tournament: Tournament
+  it('handles even team number', () => {
+    const tournament = new Tournament([
+      'Arsenal',
+      'Chelsea',
+      'Liverpool',
+      'Manchester City',
+      'Manchester United',
+      'West Ham',
+    ])
 
-  beforeEach(() => {
-    tournament = new Tournament(TEAMS)
-  })
-
-  it('throw error if teams length are odd', () => {
-    expect(() => new Tournament([{ id: 1, name: 'Arsenal' }])).toThrowError(
-      Error
-    )
-  })
-
-  it('returns correct matches', () => {
+    expect(tournament.matches.length).toBe(10)
     expect(tournament.matches).toStrictEqual([
       [
         ['Chelsea', 'Arsenal'],
@@ -77,7 +66,56 @@ describe('Tournament', () => {
     ])
   })
 
-  it('returns 10 rounds when receiving 6 teams', () => {
-    expect(tournament.matches.length).toBe(10)
+  it('handles odd team number', () => {
+    const tournament = new Tournament([
+      'Arsenal',
+      'Liverpool',
+      'Manchester City',
+      'West Ham',
+      'AFC Richmond',
+    ])
+    expect(tournament.teams.length).toBe(6)
+    expect(tournament.matches).toStrictEqual([
+      [
+        ['Liverpool', 'Arsenal'],
+        ['AFC Richmond', 'West Ham'],
+      ],
+      [
+        ['Arsenal', 'Manchester City'],
+        ['West Ham', 'Liverpool'],
+      ],
+      [
+        ['West Ham', 'Arsenal'],
+        ['Manchester City', 'AFC Richmond'],
+      ],
+      [
+        ['Arsenal', 'AFC Richmond'],
+        ['Liverpool', 'Manchester City'],
+      ],
+      [
+        ['AFC Richmond', 'Liverpool'],
+        ['West Ham', 'Manchester City'],
+      ],
+      [
+        ['Arsenal', 'Liverpool'],
+        ['West Ham', 'AFC Richmond'],
+      ],
+      [
+        ['Manchester City', 'Arsenal'],
+        ['Liverpool', 'West Ham'],
+      ],
+      [
+        ['Arsenal', 'West Ham'],
+        ['AFC Richmond', 'Manchester City'],
+      ],
+      [
+        ['AFC Richmond', 'Arsenal'],
+        ['Manchester City', 'Liverpool'],
+      ],
+      [
+        ['Liverpool', 'AFC Richmond'],
+        ['Manchester City', 'West Ham'],
+      ],
+    ])
   })
 })
