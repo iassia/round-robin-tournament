@@ -1,6 +1,6 @@
 {
   "name": "round-robin-tournament",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A round-robin tournament (or all-play-all tournament) using JavaScript / TypeScript.",
   "repository": "https://github.com/iassia/round-robin-tournament.git",
   "homepage": "https://github.com/iassia/round-robin-tournament",
