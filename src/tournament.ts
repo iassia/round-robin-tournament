@@ -17,6 +17,10 @@ export default class Tournament implements TournamentInterface {
   readonly totalRounds: number
 
   constructor(teams: TeamsList) {
+    if (teams.length <= 1) {
+      throw new Error('A tournament needs at least 2 teams')
+    }
+
     if (teams.length % 2) {
       teams.push({ __bye: true })
     }

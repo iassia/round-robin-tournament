@@ -37,12 +37,12 @@ describe('List', () => {
     expect(rotated).toEqual([5, 2, 6, 1, 3, 4])
   })
 
-  it('ignores empty list when rotate', () => {
+  it('ignores empty list when rotating', () => {
     const rotated = List.rotate()
     expect(rotated).toEqual([])
   })
 
-  it('ignores empty list when fixed rotate', () => {
+  it('ignores empty list when fixed rotating', () => {
     const rotated = List.lockedRotate()
     expect(rotated).toEqual([])
   })

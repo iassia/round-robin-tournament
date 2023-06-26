@@ -1,6 +1,24 @@
 import Tournament from '../tournament'
 
 describe('Tournament', () => {
+  it('throw error if no team is provided', () => {
+    expect(() => new Tournament([])).toThrowError(Error)
+    expect(() => new Tournament(['AFC Richmond'])).toThrowError(Error)
+  })
+
+  it.each([
+    [2, 2],
+    [3, 6],
+    [4, 6],
+    [5, 10],
+    [6, 10],
+    [20, 38],
+    [21, 42],
+  ])('handles %i teams creating %s matches', (teamsLength, expectedMatches) => {
+    const tournament = new Tournament(new Array(teamsLength).fill(''))
+    expect(tournament.matches.length).toBe(expectedMatches)
+  })
+
   it('handles even team number', () => {
     const tournament = new Tournament([
       'Arsenal',
@@ -11,7 +29,6 @@ describe('Tournament', () => {
       'West Ham',
     ])
 
-    expect(tournament.matches.length).toBe(10)
     expect(tournament.matches).toStrictEqual([
       [
         ['Chelsea', 'Arsenal'],
@@ -74,7 +91,7 @@ describe('Tournament', () => {
       'West Ham',
       'AFC Richmond',
     ])
-    expect(tournament.teams.length).toBe(6)
+
     expect(tournament.matches).toStrictEqual([
       [
         ['Liverpool', 'Arsenal'],
