@@ -2,7 +2,7 @@
 
 # Round-robin tournament
 
-A round-robin tournament (or all-play-all tournament) using JavaScript / TypeScript.
+A round-robin tournament (or all-play-all tournament) using TypeScript.
 The goal is to create a competition in which each team meets the other teams in two rounds.
 
 ## How to Use It
