@@ -1,10 +1,10 @@
-import List from './list'
+import List from './list';
 
-type Team = string | { __bye?: boolean; [key: string]: any };
+type Team = string | ({ __bye?: boolean } & Record<PropertyKey, unknown>);
 type Matches = [Team, Team][][];
 
 interface TournamentInterface {
-  readonly teams: Team[]
+  readonly teams: Team[];
 }
 
 /**
@@ -12,65 +12,74 @@ interface TournamentInterface {
  * considering home and away rounds.
  */
 export default class Tournament implements TournamentInterface {
-  readonly teams: Team[]
-  readonly totalRounds: number
+  readonly teams: Team[];
+  readonly totalRounds: number;
 
   constructor(teams: Team[]) {
     if (teams.length <= 1) {
-      throw new Error('A tournament needs at least 2 teams')
+      throw new Error('A tournament needs at least 2 teams');
     }
 
-    if (teams.length % 2) {
-      teams.push({ __bye: true })
-    }
-
-    this.teams = teams
-    this.totalRounds = teams.length - 1
-  }
-
-  get matches(): Matches {
-    return this.tournament()
-  }
-
-  tournament(): Matches {
-    const matches = this.calculateMatches([...this.teams])
-    return [
-      ...matches,
-      ...matches.map((round) => round
-        .map(([home, away]) => [away, home] as [Team, Team])),
-    ]
+    // Add a bye team if the number of teams is odd
+    this.teams = teams.length % 2 ? [...teams, { __bye: true }] : teams;
+    this.totalRounds = this.teams.length - 1;
   }
 
   /**
-   * Calculates the matches for the given teams and number of rounds.
-   * @param {any[]} teams - The array of teams participating in the matches.
-   * @param {any[]} [rounds=[]] - The array to store the generated rounds of matches.
-   * @param {number} [round=0] - The current round number.
-   * @returns {any[]} - The array of generated rounds of matches.
+   * Returns all matches for the tournament, including home and away rounds.
    */
-  protected calculateMatches(
+  get matches(): Matches {
+    return this.tournament();
+  }
+
+  /**
+   * Generates the tournament schedule with home and away matches.
+   */
+  private tournament(): Matches {
+    const matches = this.calculateMatches([...this.teams]);
+
+    // Home & away rounds
+    return [
+      ...matches,
+      ...matches.map((round) =>
+        round.map(([home, away]) => [away, home] as [Team, Team])
+      ),
+    ];
+  }
+
+  /**
+   * Recursively calculates the matches for each round of the tournament.
+   */
+  private calculateMatches(
     teams: Team[],
-    rounds: [][] = [],
+    rounds: Matches = [],
     round: number = 0
   ): Matches {
-    if (round === this.totalRounds) return rounds
+    if (round === this.totalRounds) return rounds;
 
-    const rotatedTeams = List.lockedRotate(teams)
+    const rotatedTeams = List.lockedRotate(teams);
 
-    rounds.push(
-      rotatedTeams.slice(0, Math.ceil(rotatedTeams.length / 2))
-        .reduce((acc: [Team, Team][], team: Team, index: number) => {
-          const opponent = rotatedTeams[rotatedTeams.length - ++index]
+    const newRound: [Team, Team][] = rotatedTeams
+      .slice(0, Math.ceil(rotatedTeams.length / 2))
+      .reduce((acc, team, index) => {
+        const opponent = rotatedTeams[rotatedTeams.length - index - 1];
 
-          // Transfer a team directly to the next round of a
-          // tournament in the absence of an assigned opponent.
-          if (opponent.__bye || (team as { __bye?: boolean }).__bye) return acc
+        if (this.hasBye(opponent) || this.hasBye(team)) return acc;
 
-          acc.push(round % 2 ? [team, opponent] : [opponent, team])
-          return acc
-        }, [])
-    )
+        acc.push(round % 2 ? [team, opponent] : [opponent, team]);
+        return acc;
+      }, [] as [Team, Team][]);
 
-    return this.calculateMatches(rotatedTeams, rounds, ++round)
+    rounds.push(newRound);  
+    return this.calculateMatches(rotatedTeams, rounds, round + 1);
+  }
+
+  /**
+   * Handles odd number of teams with a bye team.
+   * @param team - The team to check.
+   * @returns True if the team is a bye team, otherwise false.
+   */
+  private hasBye(team: Team): boolean {
+    return typeof team === 'object' && '__bye' in team && team.__bye === true;
   }
 }
