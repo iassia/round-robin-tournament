@@ -1,22 +1,21 @@
 import List from './list'
 
-type Matches = any[][][]
-type Team = string | { [key: string]: any }
-type TeamsList = Team[]
+type Team = string | { __bye?: boolean; [key: string]: any };
+type Matches = [Team, Team][][];
 
 interface TournamentInterface {
-  readonly teams: TeamsList
+  readonly teams: Team[]
 }
 
 /**
- * Class to create a all-play-all tournament
- * matches considering home and away rounds
+ * Create an all-play-all tournament
+ * considering home and away rounds.
  */
 export default class Tournament implements TournamentInterface {
-  readonly teams: TeamsList
+  readonly teams: Team[]
   readonly totalRounds: number
 
-  constructor(teams: TeamsList) {
+  constructor(teams: Team[]) {
     if (teams.length <= 1) {
       throw new Error('A tournament needs at least 2 teams')
     }
@@ -37,7 +36,8 @@ export default class Tournament implements TournamentInterface {
     const matches = this.calculateMatches([...this.teams])
     return [
       ...matches,
-      ...matches.map((round) => round.map(([home, away]) => [away, home])),
+      ...matches.map((round) => round
+        .map(([home, away]) => [away, home] as [Team, Team])),
     ]
   }
 
@@ -49,23 +49,26 @@ export default class Tournament implements TournamentInterface {
    * @returns {any[]} - The array of generated rounds of matches.
    */
   protected calculateMatches(
-    teams: any,
-    rounds: any = [],
-    round: any = 0
+    teams: Team[],
+    rounds: [][] = [],
+    round: number = 0
   ): Matches {
     if (round === this.totalRounds) return rounds
 
     const rotatedTeams = List.lockedRotate(teams)
-    const halfTeams = rotatedTeams.slice(0, Math.ceil(rotatedTeams.length / 2))
 
     rounds.push(
-      halfTeams
-        .map((team: any, index: number) => {
+      rotatedTeams.slice(0, Math.ceil(rotatedTeams.length / 2))
+        .reduce((acc: [Team, Team][], team: Team, index: number) => {
           const opponent = rotatedTeams[rotatedTeams.length - ++index]
-          if (opponent.__bye || team.__bye) return
-          return round % 2 ? [team, opponent] : [opponent, team]
-        })
-        .filter(Boolean)
+
+          // Transfer a team directly to the next round of a
+          // tournament in the absence of an assigned opponent.
+          if (opponent.__bye || (team as { __bye?: boolean }).__bye) return acc
+
+          acc.push(round % 2 ? [team, opponent] : [opponent, team])
+          return acc
+        }, [])
     )
 
     return this.calculateMatches(rotatedTeams, rounds, ++round)

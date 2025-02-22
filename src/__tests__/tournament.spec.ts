@@ -1,7 +1,7 @@
 import Tournament from '../tournament'
 
 describe('Tournament', () => {
-  it('throw error if no team is provided', () => {
+  it('throws error if there are not enough teams', () => {
     expect(() => new Tournament([])).toThrowError(Error)
     expect(() => new Tournament(['AFC Richmond'])).toThrowError(Error)
   })
@@ -19,7 +19,7 @@ describe('Tournament', () => {
     expect(tournament.matches.length).toBe(expectedMatches)
   })
 
-  it('handles even team number', () => {
+  it('handles even number of teams', () => {
     const tournament = new Tournament([
       'Arsenal',
       'Chelsea',
@@ -83,7 +83,7 @@ describe('Tournament', () => {
     ])
   })
 
-  it('handles odd team number', () => {
+  it('handles odd number of teams', () => {
     const tournament = new Tournament([
       'Arsenal',
       'Liverpool',
